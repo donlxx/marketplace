@@ -6,22 +6,24 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {appConstants} from "./constant";
 import {Test} from "./component/Test";
+import {Products} from "./component/Products";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <App>
-              <Switch>
-                  <Route path={appConstants.testRoute} component={Test}>
-                  </Route>
-                  <Route path="*">
-                      <Redirect to={appConstants.homeRoute}></Redirect>
-                  </Route>
-              </Switch>
-          </App>
-      </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <BrowserRouter>
+            <App>
+                <Switch>
+                    <Route path={appConstants.testRoute} component={Test}>
+                    </Route>
+                    <Route path={appConstants.productRoute} component={Products}></Route>
+                    <Route path="*">
+                        <Redirect to={appConstants.productRoute}></Redirect>
+                    </Route>
+                </Switch>
+            </App>
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
