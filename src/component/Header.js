@@ -15,22 +15,22 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import List from "@material-ui/core/List";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import TextField from "@material-ui/core/TextField";
 import {RangeSlider} from "./RangeSlider";
 import Button from "@material-ui/core/Button";
-
+import {useDispatch, useSelector} from "react-redux";
+import {appConstants} from "../constant";
+import {NavLink} from "react-router-dom";
+import {clearSearch, getSearchResult} from "../action/product.action";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -83,10 +83,14 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
+    title: {
+        flexGrow: 1,
+    },
 }));
-let minYear;
-let maxYear;
+
+
 export function PersistentDrawerLeft(props) {
+    const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -99,10 +103,52 @@ export function PersistentDrawerLeft(props) {
         setOpen(false);
     };
 
-    const handleSetYear=(e)=>{
-        minYear=e[0];
-        maxYear=e[1];
-        console.log(minYear);
+    const handleSetYear = (e) => {
+        dispatch({
+            type: appConstants.searchYear,
+            payload: [...e]
+        });
+
+    };
+    const handleSetHP = (hp) => {
+        dispatch({
+            type: appConstants.searchHp,
+            payload: [...hp]
+        });
+    };
+    const handleSetHeatingSurface = (e) => {
+        dispatch({
+            type: appConstants.searchHeatingSurface,
+            payload: [...e]
+        });
+    };
+    const handleSetPressure = (e) => {
+        dispatch({
+            type: appConstants.searchPressure,
+            payload: [...e]
+        });
+    };
+
+    const handleSetLength = (e) => {
+        dispatch({
+            type: appConstants.searchLength,
+            payload: [...e]
+        });
+    };
+    const handleSetHight = (e) => {
+        dispatch({
+            type: appConstants.searchHight,
+            payload: [...e]
+        });
+    };
+    const filter=useSelector(state=>state.filter);
+    const products=useSelector(state=>state.product.rowData)
+    const handleOnSearch = ()=>{
+        console.log(filter);
+        dispatch(getSearchResult(filter.filter,products));
+    }
+    const handleOnClear=()=>{
+        dispatch(clearSearch());
     }
 
     return (
@@ -125,9 +171,28 @@ export function PersistentDrawerLeft(props) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Persistent drawer
+                        Persistent Drawer
                     </Typography>
+                    <NavLink to={appConstants.productRoute}>
+                        <Typography variant="h6" className={classes.title}>
+                            <Button> product</Button>
+                        </Typography>
+                    </NavLink>
+                    <NavLink to={appConstants.testRoute}>
+                        <Typography variant="h6" className={classes.title}>
+                            <Button> test</Button>
+                        </Typography>
+                    </NavLink>
+                    {/*<NavLink to={appConstants.productDetailRoute}>*/}
+                    {/*    <Typography variant="h6" className={classes.title}>*/}
+                    {/*        <Button> detail test</Button>*/}
+                    {/*    </Typography>*/}
+                    {/*</NavLink>*/}
+
+
                 </Toolbar>
+
+
             </AppBar>
             <Drawer
                 className={classes.drawer}
@@ -138,18 +203,18 @@ export function PersistentDrawerLeft(props) {
                     paper: classes.drawerPaper,
                 }}
             >
-                <div className={classes.drawerHeader}> filter!!!
+                <div className={classes.drawerHeader}>
+                    <Typography className={classes.heading}>Filter</Typography>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-
                     </IconButton>
                 </div>
-                <div>
-                    <Button variant="contained" color="primary">
+                <Divider/>
+                <div className={classes.drawerHeader}>
+                    <Button size="small" color="primary" style={{margin: "auto"}} onClick={handleOnSearch}>
                         Search
                     </Button>
-                    &nbsp;•
-                    <Button variant="contained" color="primary">
+                    <Button size="small" color="primary" style={{margin: "auto"}} onClick={handleOnClear}>
                         Clear
                     </Button>
                 </div>
@@ -158,13 +223,12 @@ export function PersistentDrawerLeft(props) {
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
+                        id="panel1a-header">
                         <Typography className={classes.heading}>Model Year</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            <RangeSlider min={2000} max={2020} setValue = {handleSetYear}/>
+                            <RangeSlider min={2000} max={2020} setValue={handleSetYear}/>
                             {/*<TextField id="standard-basic" label="Model year" />*/}
                         </Typography>
                     </AccordionDetails>
@@ -181,16 +245,16 @@ export function PersistentDrawerLeft(props) {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            <p>air flower</p>
-                            <RangeSlider min={2000} max={2020}/>
-                            <p>Max power (W)</p>
-                            <RangeSlider min={2000} max={2020}/>
-                            <p>Sound at max speed(dBA)</p>
-                            <RangeSlider min={2000} max={2020}/>
-                            <p>Fan sweep diameter (in)</p>
-                            <RangeSlider min={2000} max={2020}/>
-                            <p>air flower</p>
-                            <RangeSlider min={2000} max={2020}/>
+                            <p>House Power</p>
+                            <RangeSlider min={50} max={1000} setValue={handleSetHP}/>
+                            <p>Heating Surface(FT^2)</p>
+                            <RangeSlider min={1000} max={5000} setValue={handleSetHeatingSurface}/>
+                            <p>Design pressure</p>
+                            <RangeSlider min={200} max={400} setValue={handleSetPressure}/>
+                            <p>Length Overall(IN)</p>
+                            <RangeSlider min={100} max={400} setValue={handleSetLength}/>
+                            <p>Hight Overall(IN)</p>
+                            <RangeSlider min={70} max={150} setValue={handleSetHight}/>
                             {/*<TextField id="standard-basic" label="Model year" />*/}
                         </Typography>
                     </AccordionDetails>
