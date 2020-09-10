@@ -25,7 +25,7 @@ export const getProductById = (id) => {
 
 export const getSearchResult = (filter, products) => {
 
-    const newProduct = products.filter(e => {
+    const newProducts = products.filter(e => {
 
         //e.pressure > filter.pressure[0] && e.pressure < filter.pressure[0] &&
         return e.hp > filter.hp[0] && e.hp < filter.hp[1]
@@ -36,7 +36,7 @@ export const getSearchResult = (filter, products) => {
 
     return {
         type: appConstants.searchButton,
-        payload: newProduct
+        payload: newProducts
     };
 }
 export const clearSearch =()=>{

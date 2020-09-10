@@ -3,6 +3,7 @@ export const appConstants={
     testRoute: '/test',
     productRoute:'/products',
     productDetailRoute:'/productdetail',
+    productCompareRoute:'/productCompare',
     //actions
     searchYear: 'searchYear',
     searchHp: 'searchHp',
@@ -12,6 +13,9 @@ export const appConstants={
     searchHight: 'searchHight',
     searchButton: 'searchButton',
     searchClearButton:'searchClearButton',
+    addCompare: 'addCompare',
+    clearCompare:'clearCompare',
+    clearCompareById:'clearCompareById',
     //request
     Get_Product:'Get_Product',
     Get_ProductById: 'Get_ProductById'

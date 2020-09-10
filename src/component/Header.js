@@ -178,6 +178,13 @@ export function PersistentDrawerLeft(props) {
                             <Button> product</Button>
                         </Typography>
                     </NavLink>
+
+                    <NavLink to={appConstants.productCompareRoute}>
+                        <Typography variant="h6" className={classes.title}>
+                            <Button> compare</Button>
+                        </Typography>
+                    </NavLink>
+
                     <NavLink to={appConstants.testRoute}>
                         <Typography variant="h6" className={classes.title}>
                             <Button> test</Button>
@@ -245,15 +252,15 @@ export function PersistentDrawerLeft(props) {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            <p>House Power</p>
+                            House Power
                             <RangeSlider min={50} max={1000} setValue={handleSetHP}/>
-                            <p>Heating Surface(FT^2)</p>
+                            Heating Surface(FT^2)
                             <RangeSlider min={1000} max={5000} setValue={handleSetHeatingSurface}/>
-                            <p>Design pressure</p>
+                            Design pressure
                             <RangeSlider min={200} max={400} setValue={handleSetPressure}/>
-                            <p>Length Overall(IN)</p>
+                            Length Overall(IN)
                             <RangeSlider min={100} max={400} setValue={handleSetLength}/>
-                            <p>Hight Overall(IN)</p>
+                            Hight Overall(IN)
                             <RangeSlider min={70} max={150} setValue={handleSetHight}/>
                             {/*<TextField id="standard-basic" label="Model year" />*/}
                         </Typography>

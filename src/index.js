@@ -12,6 +12,7 @@ import {applyMiddleware, createStore} from "redux";
 import reduxPromise from 'redux-promise'
 import {rootReducer} from "./reducer/root.reducer";
 import {ProductDetail} from "./component/Product.detail";
+import {Compare} from "./component/Compare";
 
 ReactDOM.render(
     // <React.StrictMode>
@@ -19,8 +20,8 @@ ReactDOM.render(
             <BrowserRouter>
                 <App>
                     <Switch>
-                        <Route path={appConstants.testRoute} component={Test}>
-                        </Route>
+                        <Route  path={appConstants.productCompareRoute} component={Compare}></Route>
+                        <Route path={appConstants.testRoute} component={Test}> </Route>
                         <Route path={appConstants.productRoute} component={Products}/>
                         <Route path={`${appConstants.productDetailRoute}/:id`} component={ProductDetail}></Route>
                         <Route path="*">

@@ -2,19 +2,28 @@ import React from 'react';
 import "./Products.scss"
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {appConstants} from "../constant";
 import {Link} from "react-router-dom";
-import {getSearchResult} from "../action/product.action";
+import Button from "@material-ui/core/Button";
+import {addCompareProduct} from "../action/compare.action";
+
+// const handleOnAddCompare = (id)=>{
+//     console.log('hai in 20 hang'+id);
+// }
 
 export const Products = () => {
 
     const filter = useSelector(state => state.filter);
+    const compareTest=useSelector(state=>state.compare);
+    console.log(compareTest);
     const localProducts = useSelector(state => state.product).data;
+    const dispatch = useDispatch();
    // const localProducts=p.data;
-    console.log(localProducts);
-    console.log(localProducts.length);
+   //  console.log(localProducts);
+   //  console.log(localProducts.length);
     // if (!!localProducts && !!filter) console.log(getSearchResult(filter.filter, localProducts));
+
     return (
         <Grid container spacing={3} className="Products">
             {   //short circuit evalvation
@@ -28,9 +37,12 @@ export const Products = () => {
                                     <h3 style={{margin: 100}}> {p.name}</h3>
                                     <div>{p.brand}</div>
                                     <div>price: {p.price}</div>
+                                    <div>House Power: {p.hp}</div>
                                 </div>
+
                             </Paper>
                         </Link>
+                        <Button variant="contained" color="primary" position="center" onClick={()=>{console.log(p.id);dispatch(addCompareProduct(p))}}> compare </Button>
                     </Grid>
                 ))
             }
