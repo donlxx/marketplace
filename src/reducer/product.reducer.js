@@ -5,6 +5,7 @@ export const productReducer = (state = {rowData:[],data:[]}, action) => {
 
         case appConstants.Get_Product:
             state = {...state};
+            if(!action.payload.data) return state;
             state.rowData=[...action.payload.data];
             state.data=[...action.payload.data];
             return state;

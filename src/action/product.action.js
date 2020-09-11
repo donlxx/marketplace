@@ -1,10 +1,17 @@
 import axios from 'axios';
 import {appConstants} from "../constant";
+import {useSelector} from "react-redux";
 
 const DATE_JSON_URL = 'https://jsonmock.hackerrank.com/datetime';
+
+
 export const getProducts = () => {
-    const headers = {}
-    const getProductsPromise = axios.get(`http://localhost:8080/product`
+
+    const token=localStorage.getItem('token');
+    // const token='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dHR0dHQiLCJleHAiOjE1OTk3OTgxMjMsImlhdCI6MTU5OTc4MDEyM30.Wav5jyMYji-zKyQp2kYJh1VE9xp45eBiQQjFdYtIAY5p-UmV25-QgMiEy_AGaMrm3ruwvvBD4RDFJCdjZuFD5g';
+    const headers = {'Authorization':'Bearer '+token};
+    const getProductsPromise = axios.get(`http://localhost:8080/product`,
+        {headers}
         // { withCredentials:true}
     );
 

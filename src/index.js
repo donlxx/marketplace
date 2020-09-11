@@ -5,29 +5,35 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {appConstants} from "./constant";
-import {Test} from "./component/Test";
 import {Products} from "./component/Products";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import reduxPromise from 'redux-promise'
 import {rootReducer} from "./reducer/root.reducer";
 import {ProductDetail} from "./component/Product.detail";
 import {Compare} from "./component/Compare";
+import {Login} from "./component/Login";
+import {PrivateRoute} from "./PrivateRoute";
+
+// const auth= useSelector(state=>state.auth);
 
 ReactDOM.render(
     // <React.StrictMode>
         <Provider store={applyMiddleware(reduxPromise)(createStore)(rootReducer)}>
             <BrowserRouter>
                 <App>
+                    {/*<div>{JSON.stringify(auth)}</div>*/}
                     <Switch>
-                        <Route  path={appConstants.productCompareRoute} component={Compare}></Route>
-                        <Route path={appConstants.testRoute} component={Test}> </Route>
-                        <Route path={appConstants.productRoute} component={Products}/>
-                        <Route path={`${appConstants.productDetailRoute}/:id`} component={ProductDetail}></Route>
-                        <Route path="*">
-                            <Redirect to={appConstants.productRoute}></Redirect>
-                        </Route>
+                        {/*<Route path={appConstants.testRoute} exact component={Login}> </Route>*/}
+                        <PrivateRoute path={appConstants.testRoute} exact comp={Login}></PrivateRoute>
+                        <PrivateRoute path={appConstants.loginRoute} exact comp={Login}></PrivateRoute>
+                        <Route path={appConstants.productCompareRoute} exact component={Compare}></Route>
+                        <Route path={appConstants.productRoute} exact component={Products}/>
+                        <Route path={`${appConstants.productDetailRoute}/:id`} exact component={ProductDetail}></Route>
+                        <Redirect to={appConstants.testRoute} ></Redirect>
+
                     </Switch>
+                    {/*<MyRouter/>*/}
                 </App>
             </BrowserRouter>
         </Provider>

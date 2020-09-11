@@ -21,6 +21,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {appConstants} from "../constant";
 import {NavLink} from "react-router-dom";
 import {clearSearch, getSearchResult} from "../action/product.action";
+import {logout} from "../action/auth.action";
 
 const drawerWidth = 240;
 
@@ -90,7 +91,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function PersistentDrawerLeft(props) {
+
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+
+    // dispatch(login('tttttt','123123'));
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -141,15 +146,30 @@ export function PersistentDrawerLeft(props) {
             payload: [...e]
         });
     };
-    const filter=useSelector(state=>state.filter);
-    const products=useSelector(state=>state.product.rowData)
-    const handleOnSearch = ()=>{
+    const filter = useSelector(state => state.filter);
+    const products = useSelector(state => state.product.rowData)
+    const handleOnSearch = () => {
         console.log(filter);
-        dispatch(getSearchResult(filter.filter,products));
+        dispatch(getSearchResult(filter.filter, products));
     }
-    const handleOnClear=()=>{
+    const handleOnClear = () => {
         dispatch(clearSearch());
     }
+    console.log(props.children);
+
+    const handleLogout = () => {
+        console.log('hi i logout');
+        dispatch(logout);
+    }
+    // const logoutButton=()=>{
+    //     auth.islogin?
+    //     return (
+    //
+    //             <Typography variant="h6" className={classes.title}>
+    //                 <Button> login</Button>
+    //             </Typography>
+    //     ):null;
+    // }
 
     return (
         <div className={classes.root}>
@@ -185,11 +205,25 @@ export function PersistentDrawerLeft(props) {
                         </Typography>
                     </NavLink>
 
+
                     <NavLink to={appConstants.testRoute}>
                         <Typography variant="h6" className={classes.title}>
-                            <Button> test</Button>
+                            <Button> login</Button>
                         </Typography>
                     </NavLink>
+
+
+                    {/*<NavLink to={appConstants.testRoute}>*/}
+                    {/*    <Typography variant="h6" className={classes.title}>*/}
+                    {/*        <Button> login</Button>*/}
+                    {/*    </Typography>*/}
+                    {/*</NavLink>*/}
+
+                    {auth.islogin &&
+                    <Typography variant={"h6"} className={classes.title}>
+                        <Button onClick={handleLogout}> logout</Button>
+                    </Typography>
+                    }
                     {/*<NavLink to={appConstants.productDetailRoute}>*/}
                     {/*    <Typography variant="h6" className={classes.title}>*/}
                     {/*        <Button> detail test</Button>*/}
@@ -299,13 +333,15 @@ export function PersistentDrawerLeft(props) {
                     [classes.contentShift]: open,
                 })}
             >
+                {/*<h1 style={{color:'green'}}>123shdjbvjhsbvhsbdjvhbsdfjhvbsdjhvsjdvnksjfbnvksfbvhks</h1>*/}
+                {/*<h1 style={{color:'green'}}>123shdjbvjhsbvhsbdjvhbsdfjhvbsdjhvsjdvnksjfbnvksfbvhks</h1>*/}
                 <div className={classes.drawerHeader}/>
-                <Typography paragraph>
+                {/*<Typography paragraph>*/}
 
-                </Typography>
-                <Typography paragraph>
-
-                </Typography>
+                {/*</Typography>*/}
+                {/*<Typography paragraph>*/}
+                {/*<div>{JSON.stringify(props.children)}</div>*/}
+                {/*</Typography>*/}
                 {props.children}
             </main>
         </div>
