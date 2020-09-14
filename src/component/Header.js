@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        // color: 'green'
     },
 }));
 
@@ -155,21 +156,13 @@ export function PersistentDrawerLeft(props) {
     const handleOnClear = () => {
         dispatch(clearSearch());
     }
-    console.log(props.children);
+    // console.log(props.children);
 
     const handleLogout = () => {
         console.log('hi i logout');
-        dispatch(logout);
+        localStorage.removeItem('token');
+        dispatch(logout());
     }
-    // const logoutButton=()=>{
-    //     auth.islogin?
-    //     return (
-    //
-    //             <Typography variant="h6" className={classes.title}>
-    //                 <Button> login</Button>
-    //             </Typography>
-    //     ):null;
-    // }
 
     return (
         <div className={classes.root}>
@@ -191,7 +184,7 @@ export function PersistentDrawerLeft(props) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Persistent Drawer
+                        Market Place
                     </Typography>
                     <NavLink to={appConstants.productRoute}>
                         <Typography variant="h6" className={classes.title}>
@@ -205,13 +198,13 @@ export function PersistentDrawerLeft(props) {
                         </Typography>
                     </NavLink>
 
-
+                    {!auth.islogin &&
                     <NavLink to={appConstants.testRoute}>
                         <Typography variant="h6" className={classes.title}>
                             <Button> login</Button>
                         </Typography>
                     </NavLink>
-
+                     }
 
                     {/*<NavLink to={appConstants.testRoute}>*/}
                     {/*    <Typography variant="h6" className={classes.title}>*/}
@@ -333,15 +326,11 @@ export function PersistentDrawerLeft(props) {
                     [classes.contentShift]: open,
                 })}
             >
-                {/*<h1 style={{color:'green'}}>123shdjbvjhsbvhsbdjvhbsdfjhvbsdjhvsjdvnksjfbnvksfbvhks</h1>*/}
-                {/*<h1 style={{color:'green'}}>123shdjbvjhsbvhsbdjvhbsdfjhvbsdjhvsjdvnksjfbnvksfbvhks</h1>*/}
-                <div className={classes.drawerHeader}/>
-                {/*<Typography paragraph>*/}
 
-                {/*</Typography>*/}
-                {/*<Typography paragraph>*/}
+                <div className={classes.drawerHeader}/>
+
                 {/*<div>{JSON.stringify(props.children)}</div>*/}
-                {/*</Typography>*/}
+
                 {props.children}
             </main>
         </div>

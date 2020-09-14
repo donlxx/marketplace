@@ -4,7 +4,9 @@ export const appConstants={
     productRoute:'/products',
     productDetailRoute:'/productdetail',
     productCompareRoute:'/productCompare',
-    loginRoute: 'loginRoute',
+    registerRoute:'/registerRoute',
+    // loginRoute: '/loginRoute',
+
     //actions
     searchYear: 'searchYear',
     searchHp: 'searchHp',
@@ -19,6 +21,8 @@ export const appConstants={
     clearCompareById:'clearCompareById',
     loginAction: 'loginAction',
     logoutAction: 'logoutAction',
+    checkLoginAction: 'checkLoginAction',
+    registerAction:'registerAction',
     //request
     Get_Product:'Get_Product',
     Get_ProductById: 'Get_ProductById'

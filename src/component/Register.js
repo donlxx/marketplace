@@ -1,22 +1,21 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import UsernameIcon from "@material-ui/icons/Person";
+import PasswordIcon from "@material-ui/icons/VpnKey";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import {NavLink} from "react-router-dom";
-import PasswordIcon from "@material-ui/icons/VpnKey";
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {makeStyles} from "@material-ui/core/styles";
-import UsernameIcon from "@material-ui/icons/Person";
-import {useDispatch} from "react-redux";
-import { useHistory } from "react-router-dom";
-import {login} from "../action/auth.action";
 import {appConstants} from "../constant";
-
+import Container from "@material-ui/core/Container";
+import {makeStyles} from "@material-ui/core/styles";
+import {register} from "../action/auth.action";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,29 +37,62 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Login = (props) => {
-    const dispatch=useDispatch();
+
+export const Register = () => {
     const classes = useStyles();
-    const history=useHistory();
-    const [user,setUser]=React.useState(
-        {
-            username:'',
-            password:''
-        }
-    );
+    const [user, setUser] = useState({
+        username: '',
+        password: '',
+        passwordConfirm: '',
+        error: false,
+        success: false,
+        message: '',
+    });
+
+    // const {username,password} =user;
+
+    const dispatch = useDispatch();
+
     const handleFormControl = (event) => {
         const newUser = {...user};
         newUser[event.target.name] = event.target.value;
         // console.log(newUser);
         setUser(newUser);
     }
-    const handleLogin=(event)=>{
-        event.preventDefault();
-       // console.log(user);
-        dispatch(login(user.username,user.password));
-        history.push(appConstants.productRoute);
 
+    // const register = (username,password) => {
+    //     console.log(username,password);
+    // }
+    const clickSubmit = (event => {
+        event.preventDefault();
+        register(user.username,user.password);
+        history.push(appConstants.testRoute);
+
+    });
+
+
+    const showError = () => {
+        return (
+            <div
+                className="alert alert-danger"
+                style={{display: user.error ? '' : 'none'}}
+            >
+                {user.message}
+            </div>
+        );
     }
+
+    const showSuccess = () => {
+        return (
+            <div
+                className="alert alert-info"
+                style={{display: user.success ? '' : 'none'}}
+            >
+                New account is created. Please Check your email and sign in
+            </div>
+        );
+    }
+    const history = useHistory();
     return (
         <Container component="main" maxWidth="xs" className='container' style={{height: '100%'}}>
             <CssBaseline/>
@@ -69,13 +101,10 @@ export const Login = (props) => {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Register
                 </Typography>
 
-
-
-
-                <form className={classes.form} noValidate onSubmit={handleLogin}>
+                <form className={classes.form} noValidate onSubmit={clickSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -122,7 +151,28 @@ export const Login = (props) => {
                             )
                         }}
                     />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="passwordConfirm"
+                        label="Password Confirm"
+                        type="password"
+                        id="passwordConfirm"
+                        // autoComplete="current-password"
+                        value={user.passwordConfirm}
+                        onChange={handleFormControl}
 
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <PasswordIcon/>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
 
                     {/*<FormControlLabel*/}
                     {/*    control={<Checkbox value="remember" color="primary"/>}*/}
@@ -137,20 +187,16 @@ export const Login = (props) => {
                         className={classes.submit}
                         disabled={!user.username || !user.password}
                     >
-                        Sign In
+                        Sign Up
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            {/*<Example variant="body2"/>*/}
-                        </Grid>
-                        <Grid item>
-                            <NavLink to={appConstants.registerRoute} variant="body2">
-                                <button variant="body2" className="text-info">
-                                    Sign Up
-                                </button>
-                            </NavLink>
-                        </Grid>
-                    </Grid>
+                    {/*<Grid container>*/}
+                    {/*    <Grid item xs>*/}
+                    {/*        /!*<Example variant="body2"/>*!/*/}
+                    {/*    </Grid>*/}
+                    {/*    <Grid item>*/}
+                    {/*       */}
+                    {/*    </Grid>*/}
+                    {/*</Grid>*/}
                 </form>
             </div>
             {/*{redirectToProducts()}*/}

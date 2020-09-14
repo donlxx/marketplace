@@ -7,6 +7,7 @@ import {appConstants} from "../constant";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import {addCompareProduct} from "../action/compare.action";
+import {CustomizedSnackbars} from "./CustomizedSnackbars";
 
 // const handleOnAddCompare = (id)=>{
 //     console.log('hai in 20 hang'+id);
@@ -16,7 +17,7 @@ export const Products = () => {
 
     const filter = useSelector(state => state.filter);
     const compareTest=useSelector(state=>state.compare);
-    console.log(compareTest);
+    // console.log(compareTest);
     const localProducts = useSelector(state => state.product).data;
     const dispatch = useDispatch();
    // const localProducts=p.data;
@@ -25,6 +26,8 @@ export const Products = () => {
     // if (!!localProducts && !!filter) console.log(getSearchResult(filter.filter, localProducts));
 
     return (
+        <>
+            {/*<CustomizedSnackbars/>*/}
         <Grid container spacing={3} className="Products">
             {   //short circuit evalvation
                 !!localProducts && localProducts.map(p => (
@@ -42,10 +45,12 @@ export const Products = () => {
 
                             </Paper>
                         </Link>
-                        <Button variant="contained" color="primary" position="center" onClick={()=>{console.log(p.id);dispatch(addCompareProduct(p))}}> compare </Button>
+                        <CustomizedSnackbars onClick={()=>{console.log(p.id);dispatch(addCompareProduct(p))}} product={p}>  </CustomizedSnackbars>
+                        {/*<Button variant="contained" color="primary" position="center" onClick={()=>{console.log(p.id);dispatch(addCompareProduct(p))}}> compare </Button>*/}
                     </Grid>
                 ))
             }
         </Grid>
+            </>
     );
 }

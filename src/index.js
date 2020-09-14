@@ -14,19 +14,22 @@ import {ProductDetail} from "./component/Product.detail";
 import {Compare} from "./component/Compare";
 import {Login} from "./component/Login";
 import {PrivateRoute} from "./PrivateRoute";
+import {Register} from "./component/Register";
 
 // const auth= useSelector(state=>state.auth);
 
 ReactDOM.render(
     // <React.StrictMode>
         <Provider store={applyMiddleware(reduxPromise)(createStore)(rootReducer)}>
+            <script src="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
             <BrowserRouter>
                 <App>
                     {/*<div>{JSON.stringify(auth)}</div>*/}
                     <Switch>
                         {/*<Route path={appConstants.testRoute} exact component={Login}> </Route>*/}
                         <PrivateRoute path={appConstants.testRoute} exact comp={Login}></PrivateRoute>
-                        <PrivateRoute path={appConstants.loginRoute} exact comp={Login}></PrivateRoute>
+                        <Route path={appConstants.registerRoute} exact component={Register}></Route>
+                        {/*<PrivateRoute path={appConstants.loginRoute} exact comp={Login}></PrivateRoute>*/}
                         <Route path={appConstants.productCompareRoute} exact component={Compare}></Route>
                         <Route path={appConstants.productRoute} exact component={Products}/>
                         <Route path={`${appConstants.productDetailRoute}/:id`} exact component={ProductDetail}></Route>
