@@ -14,6 +14,7 @@ export const appConstants={
     searchPressure: 'searchPressure',
     searchLength: 'searchLength',
     searchHight: 'searchHight',
+    searchPrice:'searchPrice',
     searchButton: 'searchButton',
     searchClearButton:'searchClearButton',
     addCompare: 'addCompare',

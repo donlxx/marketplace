@@ -8,7 +8,8 @@ export const filterReducer = (state =
                                           hight: [70, 150],
                                           length: [100, 400],
                                           heatingSurface: [1000, 5000],
-                                          pressure: [200, 400]
+                                          pressure: [200, 400],
+                                          price:[9000,25000]
                                       }
 
                                   }
@@ -46,6 +47,10 @@ export const filterReducer = (state =
             state = {...state};
             state.filter.pressure = [...action.payload];
             // console.log(state);
+            return state;
+        case appConstants.searchPrice:
+            state={...state};
+            state.filter.price=[...action.payload];
             return state;
         default:
             return state;

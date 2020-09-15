@@ -22,6 +22,7 @@ import {appConstants} from "../constant";
 import {NavLink} from "react-router-dom";
 import {clearSearch, getSearchResult} from "../action/product.action";
 import {logout} from "../action/auth.action";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -95,7 +96,7 @@ export function PersistentDrawerLeft(props) {
 
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
-
+    const history = useHistory();
     // dispatch(login('tttttt','123123'));
     const classes = useStyles();
     const theme = useTheme();
@@ -147,6 +148,12 @@ export function PersistentDrawerLeft(props) {
             payload: [...e]
         });
     };
+    const handleSetPrice=(e)=>{
+        dispatch({
+            type: appConstants.searchPrice,
+            payload: [...e]
+        });
+    }
     const filter = useSelector(state => state.filter);
     const products = useSelector(state => state.product.rowData)
     const handleOnSearch = () => {
@@ -156,8 +163,6 @@ export function PersistentDrawerLeft(props) {
     const handleOnClear = () => {
         dispatch(clearSearch());
     }
-    // console.log(props.children);
-
     const handleLogout = () => {
         console.log('hi i logout');
         localStorage.removeItem('token');
@@ -188,7 +193,7 @@ export function PersistentDrawerLeft(props) {
                     </Typography>
                     <NavLink to={appConstants.productRoute}>
                         <Typography variant="h6" className={classes.title}>
-                            <Button> product</Button>
+                            <Button> product </Button>
                         </Typography>
                     </NavLink>
 
@@ -300,11 +305,11 @@ export function PersistentDrawerLeft(props) {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography className={classes.heading}> Brand </Typography>
+                        <Typography className={classes.heading}> Price </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            on hold
+                            <RangeSlider min={9000} max={25000} setValue={handleSetPrice}/>
                             {/*<RangeSlider min={2000} max={2020}/>*/}
                             {/*<TextField id="standard-basic" label="Model year" />*/}
                         </Typography>
