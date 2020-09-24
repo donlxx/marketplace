@@ -12,10 +12,11 @@ import PasswordIcon from "@material-ui/icons/VpnKey";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {makeStyles} from "@material-ui/core/styles";
 import UsernameIcon from "@material-ui/icons/Person";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { useHistory } from "react-router-dom";
 import {login} from "../action/auth.action";
 import {appConstants} from "../constant";
+import {Alert} from "./Alert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,10 +43,13 @@ export const Login = (props) => {
     const dispatch=useDispatch();
     const classes = useStyles();
     const history=useHistory();
+    const auth=useSelector(state=>state.auth);
+
     const [user,setUser]=React.useState(
         {
             username:'',
-            password:''
+            password:'',
+            loginSuccess: false
         }
     );
     const handleFormControl = (event) => {
@@ -58,9 +62,28 @@ export const Login = (props) => {
         event.preventDefault();
        // console.log(user);
         dispatch(login(user.username,user.password));
-        history.push(appConstants.productRoute);
+
+         if(auth.islogin){
+             setOpen(true);
+             user.loginSuccess=true;
+
+            // console.log('login success !!!');
+         }
+        //history.push(appConstants.productRoute);
+
 
     }
+    // for control alert
+    const [open, setOpen] = React.useState(false);
+    const handleClick = () => {
+        setOpen(true);
+    };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
     return (
         <Container component="main" maxWidth="xs" className='container' style={{height: '100%'}}>
             <CssBaseline/>
@@ -154,6 +177,10 @@ export const Login = (props) => {
                 </form>
             </div>
             {/*{redirectToProducts()}*/}
+            {user.loginSuccess?  <Alert onClose={handleClose} severity="success">Login successfully!</Alert>
+                  :null}
+
+
 
 
         </Container>

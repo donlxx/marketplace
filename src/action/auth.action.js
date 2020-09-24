@@ -5,9 +5,13 @@ export const login = (username, password) => {
     const authData = {
         username: username,
         password: password,
-        returnSecureToken: true
+        returnSecureToken: true,
+        // headers: {'Access-Control-Allow-Origin': '*'}
     };
-    let url = 'http://localhost:8080/authenticate';
+    // const config = {
+    //     headers: {'Access-Control-Allow-Origin': '*'}
+    // };
+    let url = `${process.env.REACT_APP_API_URL}/authenticate`;
 
     async function signIn() {
         return axios.post(url, authData);
@@ -39,7 +43,7 @@ export const register=(username,password)=>{
         password: password,
         returnSecureToken: true
     };
-    let url = 'http://localhost:8080/register';
+    let url = `${process.env.REACT_APP_API_URL}/register`;
 
     async function signUp() {
         return axios.post(url, authData);

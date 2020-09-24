@@ -211,26 +211,13 @@ export function PersistentDrawerLeft(props) {
                     </NavLink>
                      }
 
-                    {/*<NavLink to={appConstants.testRoute}>*/}
-                    {/*    <Typography variant="h6" className={classes.title}>*/}
-                    {/*        <Button> login</Button>*/}
-                    {/*    </Typography>*/}
-                    {/*</NavLink>*/}
-
                     {auth.islogin &&
                     <Typography variant={"h6"} className={classes.title}>
                         <Button onClick={handleLogout}> logout</Button>
                     </Typography>
                     }
-                    {/*<NavLink to={appConstants.productDetailRoute}>*/}
-                    {/*    <Typography variant="h6" className={classes.title}>*/}
-                    {/*        <Button> detail test</Button>*/}
-                    {/*    </Typography>*/}
-                    {/*</NavLink>*/}
-
 
                 </Toolbar>
-
 
             </AppBar>
             <Drawer
@@ -294,7 +281,6 @@ export function PersistentDrawerLeft(props) {
                             <RangeSlider min={100} max={400} setValue={handleSetLength}/>
                             Hight Overall(IN)
                             <RangeSlider min={70} max={150} setValue={handleSetHight}/>
-                            {/*<TextField id="standard-basic" label="Model year" />*/}
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -310,20 +296,11 @@ export function PersistentDrawerLeft(props) {
                     <AccordionDetails>
                         <Typography>
                             <RangeSlider min={9000} max={25000} setValue={handleSetPrice}/>
-                            {/*<RangeSlider min={2000} max={2020}/>*/}
-                            {/*<TextField id="standard-basic" label="Model year" />*/}
+
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-                {/*<Divider />*/}
-                {/*<List>*/}
-                {/*    {['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
-                {/*        <ListItem button key={text}>*/}
-                {/*            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-                {/*            <ListItemText primary={text} />*/}
-                {/*        </ListItem>*/}
-                {/*    ))}*/}
-                {/*</List>*/}
+
             </Drawer>
 
             <main
@@ -333,9 +310,6 @@ export function PersistentDrawerLeft(props) {
             >
 
                 <div className={classes.drawerHeader}/>
-
-                {/*<div>{JSON.stringify(props.children)}</div>*/}
-
                 {props.children}
             </main>
         </div>

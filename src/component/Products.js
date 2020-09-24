@@ -5,14 +5,9 @@ import Paper from "@material-ui/core/Paper";
 import {useDispatch, useSelector} from "react-redux";
 import {appConstants} from "../constant";
 import {Link} from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import {addCompareProduct} from "../action/compare.action";
 import {CustomizedSnackbars} from "./CustomizedSnackbars";
-
-// const handleOnAddCompare = (id)=>{
-//     console.log('hai in 20 hang'+id);
-// }
 
 export const Products = () => {
 
@@ -21,13 +16,9 @@ export const Products = () => {
     const auth=useSelector(state=>state.auth);
     const history=useHistory();
     const localProducts = useSelector(state => state.product).data;
-    const dispatch = useDispatch();
     if(!auth.islogin){history.push(appConstants.testRoute)}
-   // const localProducts=p.data;
-   //  console.log(localProducts);
-   //  console.log(localProducts.length);
-    // if (!!localProducts && !!filter) console.log(getSearchResult(filter.filter, localProducts));
-
+    if(localProducts.length===0 && auth.islogin) window.location.reload();
+    const dispatch = useDispatch();
     return (
         <>
                 <Grid container spacing={3} className="Products">

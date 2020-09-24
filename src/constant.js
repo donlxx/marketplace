@@ -1,4 +1,6 @@
 export const appConstants={
+    // APP_API_URL:'http://localhost:8080',
+    // APP_API_URL:'http://localhost:8080/SpringMC',
     //route
     testRoute: '/login',
     productRoute:'/products',

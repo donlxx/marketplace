@@ -8,10 +8,11 @@ export const getProducts = () => {
 
     const token = localStorage.getItem('token');
     // const token='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dHR0dHQiLCJleHAiOjE1OTk3OTgxMjMsImlhdCI6MTU5OTc4MDEyM30.Wav5jyMYji-zKyQp2kYJh1VE9xp45eBiQQjFdYtIAY5p-UmV25-QgMiEy_AGaMrm3ruwvvBD4RDFJCdjZuFD5g';
-    const headers = {'Authorization': 'Bearer ' + token};
-    const getProductsPromise = axios.get(`http://localhost:8080/product`,
+    const headers = {'Authorization': 'Bearer ' + token,
+        'Access-Control-Allow-Origin': '*'};
+    const getProductsPromise = axios.get(`${process.env.REACT_APP_API_URL}/product`,
         {headers}
-        // { withCredentials:true}
+
     );
 
     return {
@@ -21,7 +22,7 @@ export const getProducts = () => {
 };
 
 export const getProductById = (id) => {
-    const getProductByIdPromise = axios.get(`http://localhost:8080/product/${id}`);
+    const getProductByIdPromise = axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`);
     return {
         type: appConstants.Get_ProductById,
         payload: getProductByIdPromise
